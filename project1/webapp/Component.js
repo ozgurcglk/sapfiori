@@ -1,26 +1,28 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
-    "project1/model/models"
-], (UIComponent, models) => {
+    "sap/ui/model/json/JSONModel"
+ ], (UIComponent, JSONModel) => {
     "use strict";
-
-    return UIComponent.extend("project1.Component", {
-        metadata: {
-            manifest: "json",
-            interfaces: [
-                "sap.ui.core.IAsyncContentCreation"
-            ]
-        },
-
-        init() {
-            // call the base component's init function
-            UIComponent.prototype.init.apply(this, arguments);
-
-            // set the device model
-            this.setModel(models.createDeviceModel(), "device");
-
-            // enable routing
-            this.getRouter().initialize();
-        }
+ 
+    return UIComponent.extend("ui5.walkthrough.Component", {
+       metadata : {
+          interfaces: ["sap.ui.core.IAsyncContentCreation"],
+          manifest: "json"
+       },
+ 
+       init() {
+          // call the init function of the parent
+          UIComponent.prototype.init.apply(this, arguments);
+ 
+          // set data model
+          const oData = {
+             recipient : {
+                name : "World"
+             }
+          };
+          const oModel = new JSONModel(oData);
+          this.setModel(oModel);
+       }
     });
-});
+ });
+ 
